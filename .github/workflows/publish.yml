@@ -22,3 +22,9 @@ jobs:
         run: curl -O https://raw.githubusercontent.com/bastibe/org-static-blog/1.5.0/org-static-blog.el
       - name: Build
         run: emacs -Q --batch -l org-static-blog.el -l config.el -f org-static-blog-publish
+      - name: Deploy
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
