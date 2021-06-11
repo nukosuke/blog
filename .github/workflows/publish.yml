@@ -17,8 +17,8 @@ jobs:
       - uses: purcell/setup-emacs@master
         with:
           version: 27.1
+      - uses: actions/checkout@v2
       - name: Retrieve org-static-blog.el
         run: curl -O https://raw.githubusercontent.com/bastibe/org-static-blog/1.5.0/org-static-blog.el
-      - uses: actions/checkout@v2
       - name: Build
         run: emacs -Q --batch -l org-static-blog.el -l config.el -f org-static-blog-publish
