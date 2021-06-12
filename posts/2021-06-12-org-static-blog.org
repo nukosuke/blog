@@ -1,0 +1,58 @@
+#+title: org-modeでブログを書く
+#+date: <2021-06-12 08:44>
+#+description: Blog powered by org-static-blog and GitHub Pages
+#+filetags: emacs blog org-mode
+
+** [[https://github.com/bastibe/org-static-blog][org-static-blog]]
+   マークダウンでブログを書く際には、たとえば[[https://jekyllrb-ja.github.io/][Jekyll]]や[[https://gohugo.io/][Hugo]]といったStatic Site Generatorが有名だが、org-modeで同様の使い方ができないか調べてみた。
+   org文書からHTMLを吐き出す機能はorg-modeに組み込まれているものの、ブログのような用途は想定されておらずそのまま使うのは現実的ではない。
+   https://orgmode.org/worg/org-blog-wiki.html にorg-modeでブログを書くための拡張がリスティングされているので、この中で一番使い勝手がよさそうに感じたorg-static-blogで構築してみる。
+
+*** インストール & 設定
+    init.el に以下のように設定した。
+
+    #+BEGIN_SRC elisp
+      (use-package org-static-blog
+        :hook
+        (org-mode . org-static-blog-mode)
+        :custom
+        (org-static-blog-publish-title     "nukosuke's blog")
+        (org-static-blog-publish-url       "https://nukosuke.github.io/blog/")
+        (org-static-blog-publish-directory "~/blog/dist/")
+        (org-static-blog-posts-directory   "~/blog/posts/")
+        (org-static-blog-drafts-directory  "~/blog/drafts/")
+        (org-static-blog-enable-tags       t)
+        (org-export-with-toc               nil)
+        (org-export-with-section-numbers   nil))
+    #+END_SRC
+
+** GitHub Pagesへのデプロイ
+   #+BEGIN_SRC yaml
+     # .github/workflows/publish.yml
+     name: Publish
+
+     on:
+       push:
+         branches: [ main ]
+       pull_request:
+         branches: [ main ]
+
+     jobs:
+       build:
+         runs-on: ubuntu-latest
+         steps:
+           - uses: purcell/setup-emacs@master
+             with:
+               version: 27.1
+           - uses: actions/checkout@v2
+           - name: Retrieve org-static-blog.el
+             run: curl -O https://raw.githubusercontent.com/bastibe/org-static-blog/1.5.0/org-static-blog.el
+           - name: Build
+             run: emacs -Q --batch -l org-static-blog.el -l config.el -f org-static-blog-publish
+           - name: Deploy
+             if: github.ref == 'refs/heads/main'
+             uses: peaceiris/actions-gh-pages@v3
+             with:
+               github_token: ${{ secrets.GITHUB_TOKEN }}
+               publish_dir: ./dist
+   #+END_SRC

@@ -1,6 +1,6 @@
 ;;; config.el --- Config -*- lexical-binding: t -*-
 
-(setq org-static-blog-publish-title "netlify-plugin-org-static-blog")
+(setq org-static-blog-publish-title "blog")
 (setq org-static-blog-publish-url (concat (getenv "URL") "/"))
 (setq org-static-blog-publish-directory (concat default-directory "/dist/"))
 (setq org-static-blog-posts-directory (concat default-directory "/posts/"))
