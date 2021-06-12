@@ -1,9 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0">
 <channel>
-<title><![CDATA[netlify-plugin-org-static-blog]]></title>
-<description><![CDATA[netlify-plugin-org-static-blog]]></description>
+<title><![CDATA[blog]]></title>
+<description><![CDATA[blog]]></description>
 <link>/</link>
-<lastBuildDate>Fri, 11 Jun 2021 23:41:07 +0000</lastBuildDate>
+<lastBuildDate>Sat, 12 Jun 2021 00:15:10 +0000</lastBuildDate>
+<item>
+  <title><![CDATA[org-modeでブログを書く]]></title>
+  <description><![CDATA[
+
+<div id="outline-container-org982ef84" class="outline-2">
+<h2 id="org982ef84"><a href="https://github.com/bastibe/org-static-blog">org-static-blog</a></h2>
+<div class="outline-text-2" id="text-org982ef84">
+<p>
+マークダウンでブログを書く際には、たとえば<a href="https://jekyllrb-ja.github.io/">Jekyll</a>や<a href="https://gohugo.io/">Hugo</a>といったStatic Site Generatorが有名だが、org-modeで同様の使い方ができないか調べてみた。
+org文書からHTMLを吐き出す機能はorg-modeに組み込まれているものの、ブログのような用途は想定されておらずそのまま使うのは現実的ではない。
+<a href="https://orgmode.org/worg/org-blog-wiki.html">https://orgmode.org/worg/org-blog-wiki.html</a> にorg-modeでブログを書くための拡張がリスティングされているので、この中で一番使い勝手がよさそうに感じたorg-static-blogで構築してみる。
+</p>
+</div>
+
+<div id="outline-container-org655e27c" class="outline-3">
+<h3 id="org655e27c">インストール &amp; 設定</h3>
+<div class="outline-text-3" id="text-org655e27c">
+<p>
+init.el に以下のように設定した。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package org-static-blog
+  :hook
+  (org-mode . org-static-blog-mode)
+  :custom
+  (org-static-blog-publish-title     "nukosuke's blog")
+  (org-static-blog-publish-url       "https://nukosuke.github.io/blog/")
+  (org-static-blog-publish-directory "~/blog/dist/")
+  (org-static-blog-posts-directory   "~/blog/posts/")
+  (org-static-blog-drafts-directory  "~/blog/drafts/")
+  (org-static-blog-enable-tags       t)
+  (org-export-with-toc               nil)
+  (org-export-with-section-numbers   nil))
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org192f36a" class="outline-2">
+<h2 id="org192f36a">GitHub Pagesへのデプロイ</h2>
+<div class="outline-text-2" id="text-org192f36a">
+<div class="org-src-container">
+<pre class="src src-yaml"># .github/workflows/publish.yml
+name: Publish
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: purcell/setup-emacs@master
+	with:
+	  version: 27.1
+      - uses: actions/checkout@v2
+      - name: Retrieve org-static-blog.el
+	run: curl -O https://raw.githubusercontent.com/bastibe/org-static-blog/1.5.0/org-static-blog.el
+      - name: Build
+	run: emacs -Q --batch -l org-static-blog.el -l config.el -f org-static-blog-publish
+      - name: Deploy
+	if: github.ref == 'refs/heads/main'
+	uses: peaceiris/actions-gh-pages@v3
+	with:
+	  github_token: ${{ secrets.GITHUB_TOKEN }}
+	  publish_dir: ./dist
+</pre>
+</div>
+</div>
+</div>
+<div class="taglist"><a href="/tags.html">Tags</a>: <a href="/tag-emacs.html">emacs</a> <a href="/tag-blog.html">blog</a> <a href="/tag-org-mode.html">org-mode</a> </div>]]></description>
+  <category><![CDATA[emacs]]></category>
+  <category><![CDATA[blog]]></category>
+  <category><![CDATA[org-mode]]></category>
+  <link>/2021-06-12-org-static-blog.html</link>
+  <pubDate>Sat, 12 Jun 2021 08:44:00 +0000</pubDate>
+</item>
 </channel>
 </rss>
