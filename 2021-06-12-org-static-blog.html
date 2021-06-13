@@ -21,9 +21,9 @@
 <div id="content">
 <div class="post-date">2021/06/12</div><h1 class="post-title"><a href="/2021-06-12-org-static-blog.html">org-modeでブログを書く</a></h1>
 
-<div id="outline-container-org0130514" class="outline-2">
-<h2 id="org0130514"><a href="https://github.com/bastibe/org-static-blog">org-static-blog</a></h2>
-<div class="outline-text-2" id="text-org0130514">
+<div id="outline-container-org91e094b" class="outline-2">
+<h2 id="org91e094b"><a href="https://github.com/bastibe/org-static-blog">org-static-blog</a></h2>
+<div class="outline-text-2" id="text-org91e094b">
 <p>
 マークダウンでブログを書く際には、たとえば<a href="https://jekyllrb-ja.github.io/">Jekyll</a>や<a href="https://gohugo.io/">Hugo</a>といったStatic Site Generatorが有名だが、org-modeで同様の使い方ができないか調べてみた。
 org文書からHTMLを吐き出す機能はorg-modeに組み込まれているものの、ブログのような用途は想定されておらずそのまま使うのは現実的ではない。
@@ -31,23 +31,23 @@ org文書からHTMLを吐き出す機能はorg-modeに組み込まれている�
 </p>
 </div>
 
-<div id="outline-container-org9fd3a4c" class="outline-3">
-<h3 id="org9fd3a4c">インストール &amp; 設定</h3>
-<div class="outline-text-3" id="text-org9fd3a4c">
+<div id="outline-container-orge1b2473" class="outline-3">
+<h3 id="orge1b2473">インストール &amp; 設定</h3>
+<div class="outline-text-3" id="text-orge1b2473">
 <p>
 init.el に以下のように設定した。
 </p>
 
 <div class="org-src-container">
 <pre class="src src-elisp">(use-package org-static-blog
-  :hook
+  <span style="font-weight: bold;">:hook</span>
   (org-mode . org-static-blog-mode)
-  :custom
-  (org-static-blog-publish-title     "nukosuke's blog")
-  (org-static-blog-publish-url       "https://nukosuke.github.io/blog/")
-  (org-static-blog-publish-directory "~/blog/dist/")
-  (org-static-blog-posts-directory   "~/blog/posts/")
-  (org-static-blog-drafts-directory  "~/blog/drafts/")
+  <span style="font-weight: bold;">:custom</span>
+  (org-static-blog-publish-title     <span style="font-style: italic;">"nukosuke's blog"</span>)
+  (org-static-blog-publish-url       <span style="font-style: italic;">"https://nukosuke.github.io/blog/"</span>)
+  (org-static-blog-publish-directory <span style="font-style: italic;">"~/blog/dist/"</span>)
+  (org-static-blog-posts-directory   <span style="font-style: italic;">"~/blog/posts/"</span>)
+  (org-static-blog-drafts-directory  <span style="font-style: italic;">"~/blog/drafts/"</span>)
   (org-static-blog-enable-tags       t)
   (org-export-with-toc               nil)
   (org-export-with-section-numbers   nil))
@@ -57,9 +57,9 @@ init.el に以下のように設定した。
 </div>
 </div>
 
-<div id="outline-container-org488ff1a" class="outline-2">
-<h2 id="org488ff1a">GitHub Pagesへのデプロイ</h2>
-<div class="outline-text-2" id="text-org488ff1a">
+<div id="outline-container-orga43a348" class="outline-2">
+<h2 id="orga43a348">GitHub Pagesへのデプロイ</h2>
+<div class="outline-text-2" id="text-orga43a348">
 <div class="org-src-container">
 <pre class="src src-yaml"># .github/workflows/publish.yml
 name: Publish
