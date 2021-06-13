@@ -8,6 +8,7 @@
 (setq org-static-blog-enable-tags t)
 (setq org-export-with-toc nil)
 (setq org-export-with-section-numbers nil)
+(setq org-static-blog-langcode "ja")
 
 (defun file-to-string (file)
   "FILE to string function."
@@ -26,6 +27,9 @@
 
 (setq org-static-blog-index-front-matter
       (file-to-string (concat default-directory "partial/front-matter.html")))
+
+(org-babel-do-load-languages 'org-babel-load-languages
+                             '((emacs-lisp . t)))
 
 (defun org-static-blog-init ()
   "Make directory for org-static-blog."
