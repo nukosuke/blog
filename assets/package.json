@@ -2,13 +2,19 @@
   "name": "assets",
   "version": "1.0.0",
   "description": "assets",
+  "private": true,
   "main": "index.js",
   "scripts": {
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "assets"
   ],
   "author": "nukosuke",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2"
+  }
 }
