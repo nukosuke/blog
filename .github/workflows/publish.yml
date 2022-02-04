@@ -21,8 +21,7 @@ jobs:
       - name: Retrieve {htmlize.el,org-static-blog.el}
         run: >
           curl -O https://raw.githubusercontent.com/hniksic/emacs-htmlize/master/htmlize.el &&
-          curl -O https://raw.githubusercontent.com/nukosuke/org-static-blog/translation-ja/org-static-blog.el
-        #run: curl -O https://raw.githubusercontent.com/bastibe/org-static-blog/1.5.0/org-static-blog.el
+          curl -O https://raw.githubusercontent.com/bastibe/org-static-blog/master/org-static-blog.el
       - name: Build
         run: emacs -Q --batch -l htmlize.el -l org-static-blog.el -l config.el -f org-static-blog-publish
       - name: Deploy
