@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: purcell/setup-emacs@master
         with:
-          version: 27.1
+          version: 28.2
       - uses: actions/checkout@v2
       - name: Retrieve {htmlize.el,org-static-blog.el}
         run: >
