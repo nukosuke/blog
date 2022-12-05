@@ -5,6 +5,7 @@
 (setq org-static-blog-publish-directory (concat default-directory "/dist/"))
 (setq org-static-blog-posts-directory (concat default-directory "/posts/"))
 (setq org-static-blog-drafts-directory (concat default-directory "/drafts/"))
+(setq org-static-blog-use-preview t)
 (setq org-static-blog-enable-tags t)
 (setq org-export-with-toc nil)
 (setq org-export-with-section-numbers nil)
