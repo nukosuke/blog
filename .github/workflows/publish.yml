@@ -20,8 +20,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Retrieve {htmlize.el,org-static-blog.el}
         run: >
-          curl -O https://raw.githubusercontent.com/hniksic/emacs-htmlize/master/htmlize.el &&
-          curl -O https://raw.githubusercontent.com/bastibe/org-static-blog/master/org-static-blog.el
+          curl -O https://raw.githubusercontent.com/hniksic/emacs-htmlize/release/1.56/htmlize.el &&
+          curl -O https://raw.githubusercontent.com/bastibe/org-static-blog/1.6.0/org-static-blog.el
       - name: Build
         run: emacs -Q --batch -l htmlize.el -l org-static-blog.el -l config.el -f org-static-blog-publish
       - name: Deploy
